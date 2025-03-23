@@ -1,0 +1,12 @@
+.git
+.gitignore
+.github
+README.md
+LICENSE
+_site
+.jekyll-cache
+.bundle
+vendor
+Gemfile.lock
+node_modules
+.vscode

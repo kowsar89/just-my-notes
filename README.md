@@ -1,41 +1,39 @@
-# Chirpy Starter
+# Just My Notes
 
-[![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy)][gem]&nbsp;
-[![GitHub license](https://img.shields.io/github/license/cotes2020/chirpy-starter.svg?color=blue)][mit]
+A personal notes and documentation site built with Jekyll using the Chirpy theme.
 
-When installing the [**Chirpy**][chirpy] theme through [RubyGems.org][gem], Jekyll can only read files in the folders
-`_data`, `_layouts`, `_includes`, `_sass` and `assets`, as well as a small part of options of the `_config.yml` file
-from the theme's gem. If you have ever installed this theme gem, you can use the command
-`bundle info --path jekyll-theme-chirpy` to locate these files.
+## Editing Content on GitHub
 
-The Jekyll team claims that this is to leave the ball in the user’s court, but this also results in users not being
-able to enjoy the out-of-the-box experience when using feature-rich themes.
+This repository is configured for direct editing on GitHub:
 
-To fully use all the features of **Chirpy**, you need to copy the other critical files from the theme's gem to your
-Jekyll site. The following is a list of targets:
+1. Navigate to the `_posts` directory to edit or create new posts
+2. Use the GitHub web editor to create/edit Markdown files
+3. Follow the Jekyll naming convention: `YYYY-MM-DD-title.md`
+4. Include the necessary front matter at the top of each post:
 
-```shell
-.
-├── _config.yml
-├── _plugins
-├── _tabs
-└── index.html
+```markdown
+---
+title: Your Post Title
+date: YYYY-MM-DD HH:MM:SS +0600
+categories: [Category]
+tags: [tag1, tag2]
+---
 ```
 
-To save you time, and also in case you lose some files while copying, we extract those files/configurations of the
-latest version of the **Chirpy** theme and the [CD][CD] workflow to here, so that you can start writing in minutes.
+5. Commit your changes directly to the repository
 
-## Usage
+## GitHub Pages Deployment
 
-Check out the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy/wiki).
+This site is configured for GitHub Pages. The GitHub Actions workflow is set to run manually:
 
-## Contributing
+1. After committing your changes to GitHub
+2. Go to the "Actions" tab in the repository
+3. Select the "Build and Deploy" workflow
+4. Click "Run workflow" and select the branch to build from
 
-This repository is automatically updated with new releases from the theme repository. If you encounter any issues or want to contribute to its improvement, please visit the [theme repository][chirpy] to provide feedback.
+## Customization
 
-## License
-
-This work is published under [MIT][mit] License.
+Edit the `_config.yml` file to customize the site settings.
 
 [gem]: https://rubygems.org/gems/jekyll-theme-chirpy
 [chirpy]: https://github.com/cotes2020/jekyll-theme-chirpy/
