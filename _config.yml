@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: Just My Notes
 subtitle: ''
-description: ''
+description: A personal tech and notes blog
 keywords:
-author: John Doe
+author: Kowsar Hossain
 language: en
-timezone: ''
+timezone: Asia/Dhaka
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: https://kowsar89.github.io/just-my-notes
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -96,7 +96,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: hexo-theme-mengd
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
