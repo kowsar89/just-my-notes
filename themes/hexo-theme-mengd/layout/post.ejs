@@ -1,0 +1,64 @@
+<article class="article page">
+  <div class="article-info">
+    <% if(theme.post.avatar){ %>
+    <img src="<%= theme.post.avatar %>" alt="avatar" class="avatar">
+    <% } %>
+    <div class="article-meta">
+      <div class="author-name"><%= config.author %></div>
+      <div class="article-meta-list">
+        <% const articleDate = full_date(page.date, `${config.date_format} ${config.time_format}`) %>
+        <time datetime="<%= articleDate %>" title="<%= articleDate %>" class="time">
+          <%= articleDate %>
+        </time>
+        <% if(theme.wordcount.enable){ %>
+        <div class="article-meta-item-wrap">
+          <% if(theme.wordcount.wordcount){ %>
+          <div class="article-meta-item">
+            <%- partial('_assets/svg/word', { className: 'word-icon' }) %>
+            <span><%= wordcount(page.content) %></span>
+          </div>
+          <% } %>
+          <% if(theme.wordcount.min2read){ %>
+          <div class="article-meta-item">
+            <%- partial('_assets/svg/time', { className: 'time-icon' }) %>
+            <span><%= min2read(page.content) + 'min' %></span>
+          </div>
+          <% } %>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <div class="article-content"><%- page.content %></div>
+  <% 
+    const categories = page.categories.data
+    const tags = page.tags.data
+  %>
+  <div class="article-end">
+    <% if(categories.length || tags.length){ %>
+    <div class="article-meta">
+      <% if(categories.length){ %>
+      <div class="article-categories">
+        <div class="article-categories-name"><%= _p('post.categories') %>: </div>
+        <% for (const item of categories) {%>
+        <a class="article-categories-item" href="<%= url_for(item.path) %>">
+          <%= item.name %>
+        </a>
+        <% } %>
+      </div>
+      <% } %>
+      <% if(tags.length){ %>
+      <div class="article-tags">
+        <div class="article-tags-name"><%= _p('post.tags') %>: </div>
+        <% for (const item of tags) {%>
+        <a class="article-tags-item" href="<%= url_for(item.path) %>">
+          <%= item.name %>
+        </a>
+        <% } %>
+      </div>
+      <% } %>
+    </div>
+    <% } %>
+    <%- partial('_partial/copyright') %>
+  </div>
+</article>

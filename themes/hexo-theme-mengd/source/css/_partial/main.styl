@@ -1,0 +1,38 @@
+
+.main-width {
+    width: 70%;
+    padding: 1rem 1.66rem;
+    box-sizing: border-box;
+}
+
+.main-wrap {
+    display: flex;
+    margin-top: 1.66rem;
+    justify-content: space-between;
+
+    main.main-width {
+        padding: 2.667rem 1.66rem;
+        background: var(--main-color);
+        border-radius: 4px;
+
+        .page-title {
+            margin: 0 0 1.667rem;
+            font-size: 2.667rem;
+            font-weight: 600;
+            line-height: 1.31;
+            color: var(--font-color-1);
+            border-bottom: unset;
+        }
+
+        .page {
+            @import 'markdown';
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .main-width {
+        width: 100%;
+        padding: 1rem 0;
+    }
+}

@@ -1,0 +1,110 @@
+aside {
+    width: 28%;
+
+    .sidebar-custom {
+        padding: 1.333rem;
+    }
+
+    .sidebar-block {
+        margin-bottom: 1.66rem;
+        font-size: 1.16rem;
+        line-height: 1.29;
+        border-radius: 4px;
+        background: var(--main-color);
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .sidebar-title {
+            font-weight: 500;
+            padding: 1.333rem 0;
+            margin: 0 1.667rem;
+            font-size: 16px;
+            line-height: 2rem;
+            color: var(--font-color-1);
+            border-bottom: 1px solid var(--main-color-border);
+        }
+
+        .sidebar-body {
+            position: relative;
+            padding: 1.3rem 1.667rem;
+            max-height: 30rem;
+            overflow: auto;
+
+            li {
+                padding: 4px 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .categories-link, .link-link {
+                &:hover {
+                    transition: all 0.2s;
+                    padding: 0 4px;
+                    color: var(--main-color-hover);
+
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        left: 0;
+                        width: 4px;
+                        height: 16px;
+                        background: var(--main-color-hover);
+                        border-radius: 0 4px 4px 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .sidebar-sticky {
+        position: sticky;
+        top: 6.66rem;
+    }
+
+    .categories-wrap {
+        .categories-link {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    .tags-wrap {
+        a {
+            padding: 0 4px;
+            display: inline-block;
+
+            &:hover {
+                color: var(--main-color-hover) !important;
+                transition: all 0.6s;
+                transform: scale(1.2);
+            }
+        }
+    }
+
+    .link-wrap {
+        position: relative;
+    }
+}
+
+@media (max-width: 1000px) {
+    aside {
+        width: 0;
+        margin: 0;
+
+        .sidebar-block {
+            max-width: 50%;
+        }
+
+        &:focus-within {
+            width: inherit;
+        }
+
+        & > * {
+            display: none;
+        }
+    }
+}

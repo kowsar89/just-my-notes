@@ -103,4 +103,4 @@ theme: hexo-theme-mengd
 deploy:
   type: git
   repo: https://github.com/kowsar89/just-my-notes.git
-  branch: master
+  branch: gh-pages
