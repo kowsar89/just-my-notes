@@ -101,4 +101,6 @@ theme: hexo-theme-mengd
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: git
+  repo: https://github.com/kowsar89/just-my-notes.git
+  branch: master
