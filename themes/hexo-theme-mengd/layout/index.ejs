@@ -2,7 +2,7 @@
   <% page.posts.forEach(function (post) { %>
   <li class="post-item">
     <div class="post-meta">
-      <div class="post-date"><%= date(post.date, "YYYY.MM.DD" ) %></div>
+      <div class="post-date"><%= date(post.date, "MMMM D, YYYY" ) %></div>
       <div class="post-tag">
         <% post.tags.forEach(function(tag, i){ %>
         <a href="<%= url_for(tag.path) %>" class="post-tag-item"><%= tag.name %></a>
