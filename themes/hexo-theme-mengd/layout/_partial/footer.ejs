@@ -7,17 +7,14 @@ const custom = theme.footer.custom || config.subtitle
 
 <footer class="footer main-width">
   <div class="copyright">
-    &copy; <%= since %>
+    &copy; <%= now %>
     <%= config.author %>
   </div>
   <div class="framework-info">
-    <span><%= _p('footer.framework') %></span>
+    <span>Powered by</span>
     <a href="https://hexo.io" target="_blank">Hexo</a>
     <span class="footer-separator">|</span>
-    <span><%= _p('footer.theme') %></span>
-    <a href="https://github.com/Lete114/hexo-theme-MengD" target="_blank">MengD</a>
+    <span>Hosted on</span>
+    <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
   </div>
-  <% if(custom){ %>
-  <div class="custom"><%- custom %></div>
-  <% } %>
 </footer>
