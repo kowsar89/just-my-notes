@@ -61,10 +61,10 @@ post:
     # The default is the `title` fields in the hexo configuration file (_config.yml)
     title:
     # The default is the `author` fields in the hexo configuration file (_config.yml)
-    author:
+    author: Kowsar Hossain
     # The default is the `url` fields in the hexo configuration file (_config.yml)
     # You can also write as email: mailto:xxx@gmail.com
-    url:
+    url: https://github.com/kowsar89
     licenses: CC BY-NC-SA 4.0
     licenses_url: https://creativecommons.org/licenses/by-nc-sa/4.0/
     description: All posts on this blog are licensed under the ${licenses} license unless otherwise stated. Please cite ${title} !

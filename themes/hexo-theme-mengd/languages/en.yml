@@ -13,8 +13,8 @@ post:
   categories: Categories
   toc: Catalog
   copyright:
-    author: Authorship
-    article_link: Article Link
+    author: Author
+    article_link: Permalink
     copyright: Copyright
 
 footer:
