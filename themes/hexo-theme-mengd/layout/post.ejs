@@ -2,7 +2,7 @@
   <div class="article-info">
     <div class="article-meta">
       <div class="article-meta-list">
-        <% const articleDate = full_date(page.date, `${config.date_format} ${config.time_format}`) %>
+        <% const articleDate = full_date(page.date, `${config.date_format}`) %>
         <time datetime="<%= articleDate %>" title="<%= articleDate %>" class="time">
           <%= articleDate %>
         </time>
