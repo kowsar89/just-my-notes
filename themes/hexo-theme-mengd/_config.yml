@@ -37,7 +37,7 @@ search:
 
 # image lazy load
 lazyload:
-  enable: true
+  enable: false
   loding: /img/load.gif # image loading placeholder (defaults to 1px base64)
 
 # wordcount
