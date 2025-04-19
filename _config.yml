@@ -102,5 +102,5 @@ theme: hexo-theme-mengd
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://github.com/kowsar89/just-my-notes.git
+  repo: git@github.com:kowsar89/just-my-notes.git
   branch: gh-pages
