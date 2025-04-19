@@ -44,9 +44,9 @@ lazyload:
 # required: npm install hexo-wordcount
 wordcount:
   enable: true
-  wordcount: true
+  wordcount: false
   min2read: true
-  total_wordcount: true
+  total_wordcount: false
 
 # article
 post:

@@ -1,10 +1,6 @@
 <article class="article page">
   <div class="article-info">
-    <% if(theme.post.avatar){ %>
-    <img src="<%= theme.post.avatar %>" alt="avatar" class="avatar">
-    <% } %>
     <div class="article-meta">
-      <div class="author-name"><%= config.author %></div>
       <div class="article-meta-list">
         <% const articleDate = full_date(page.date, `${config.date_format} ${config.time_format}`) %>
         <time datetime="<%= articleDate %>" title="<%= articleDate %>" class="time">
