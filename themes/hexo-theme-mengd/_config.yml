@@ -1,4 +1,4 @@
-favicon: /img/favicon.png
+#favicon: /img/favicon.png
 logo:
   html: <img src="/just-my-notes/img/kowsar.jpg" />
   style:
@@ -51,7 +51,7 @@ wordcount:
 # article
 post:
   # author avatar
-  avatar: https://www.imlete.cn/img/avatar.png
+  avatar: https://gravatar.com/avatar/a70b013b06a94258acbbd38f1d2c152a5bc853548dfe3f0e89dca5201ef3b7c4.jpg
   # article abstract
   abstract: 200
   # The default is the `date_format` and `time_format` fields in the hexo configuration file (_config.yml)
