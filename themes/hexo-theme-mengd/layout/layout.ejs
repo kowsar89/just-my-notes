@@ -7,9 +7,11 @@
   <div class="container">
     <%- partial('_partial/header') %>
 
+    <% if (is_home()) { %>
     <div class="intro-card">
       <p>Not a typical blog — more like a bunch of personal notes written in blog style. Mostly written with the help of AI based on my input, mainly for my own reference, and occasionally for sharing with folks I personally know or have worked with.</p>
     </div>
+    <% } %>
     <div class="main-wrap">
       <main class="main-width">
         <% if(is_page() || is_post()){ %>
