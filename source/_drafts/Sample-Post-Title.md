@@ -1,5 +1,5 @@
 ---
-title: My Post Title
+title: Sample Post Title
 date: 2025-04-19
 categories:
   - Development
