@@ -1,8 +1,10 @@
 ---
 title: How to Downgrade a .deb Package on Ubuntu
 date: 2025-03-25
+categories:
+  - Software
 tags:
-  - Productivity
+  - Linux
 ---
 Sometimes a newer version of an app doesn’t work as expected — maybe it's buggy, has UI issues, or just doesn't suit your workflow. This can be frustrating, especially when there's no built-in way to roll back to a previous version. Fortunately, on Ubuntu (or any Debian-based Linux distribution), you *can* downgrade `.deb` packages manually.
 

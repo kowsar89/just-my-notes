@@ -1,6 +1,8 @@
 ---
 title: Slack's blue dot notifiation icon was distracting me — so I patched it (Linux Fix)
 date: 2025-03-26
+categories:
+  - Software
 tags:
   - Productivity
 ---
