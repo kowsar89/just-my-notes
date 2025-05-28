@@ -31,18 +31,31 @@
 }
 
 .intro-card {
-    margin: 1.66rem auto 0;
+    margin-top: 1.66rem;
     padding: 2.667rem 1.66rem;
     background-color: var(--main-color);
     border-radius: 4px;
-    text-align: center;
-    font-size: 20px;
-    line-height: 2rem;
+    font-size: 14px;
     color: var(--font-color-1);
     font-weight: 500;
-    font-style: italic;
-    p {
-        margin: 0;
+    border: 2px dotted var(--main-color-border);
+    
+    ul {
+        li {
+            position: relative;
+            padding-left: 1.5em;
+            margin-bottom: 0.8em;
+            &:before {
+                content: "•";
+                position: absolute;
+                left: 0.5em;
+                color: var(--main-color-hover);
+            }
+            
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
     }
 }
 
