@@ -1,12 +1,12 @@
 ---
-title: How I Updated a File in a Specific Tag of My WordPress Plugin Using SVN (Ubuntu)
+title: How I modified my plugin's readme.txt on the WordPress repo using SVN (Linux)
 date: 2025-04-09
 categories:
   - Development
 tags:
   - SVN
 ---
-I recently needed to update the `readme.txt` file inside a specific tag (`tags/4.1`) of my WordPress plugin hosted on WordPress.org. Since I'm not familiar with SVN (I usually use Git), I documented the exact steps here — mostly for future me, in case I forget how to do this again 😅.
+I recently needed to update the `readme.txt` file inside a specific tag (`tags/4.1`) of my WordPress plugin hosted on WordPress.org.
 
 ---
 
@@ -105,4 +105,4 @@ svn status                # See what files are modified
 
 ## 🧠 Final Thoughts
 
-This was a good reminder that SVN is different from Git — you commit from within specific directories, and you commit files explicitly. This post is mostly here for me so I don’t have to Google all this again next time 😄.
+This was a good reminder that SVN is different from Git — you commit from within specific directories, and you commit files explicitly.
