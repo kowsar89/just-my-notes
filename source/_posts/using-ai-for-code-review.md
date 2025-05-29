@@ -16,11 +16,13 @@ AI is not a replacement for a human reviewer. It’s a tool — one that helps m
 
 When a GitLab Merge Request (MR) is assigned to me, I go straight to the raw diff view. This gives me a cleaner view of what changed. The trick is simple: just add `.diff` to the end of the MR URL.
 
-*For example, if the original MR URL is*: https://gitlab.com/kowsar89/project-name/-/merge_requests/1200
+For example, if the original MR URL is: https://gitlab.com/kowsar89/project-name/-/merge_requests/1200
 
-*Then the `.diff` URL becomes*: https://gitlab.com/kowsar89/project-name/-/merge_requests/1200.diff
+Then the `.diff` URL becomes: https://gitlab.com/kowsar89/project-name/-/merge_requests/1200.diff
 
 I open that in my browser and copy the entire diff text.
+
+**💡 Note:** This same `.diff` trick works for GitHub Pull Requests (PR) too — just add `.diff` at the end of the PR URL.
 
 ## 📝 Step-2: Feed the Diff into ChatGPT
 
@@ -50,7 +52,7 @@ For code reviews, I use a custom GPT named **WordPress Wizard**, which is availa
 3. Search for **WordPress Wizard**.
 4. Open it and start a chat — it will then be pinned to your sidebar for easy reuse.
 
-This GPT is fine-tuned to understand WordPress and PHP context, so it often provides much more relevant insights than the default GPT-4 model.
+This GPT is fine-tuned to understand WordPress and PHP context, so it often provides much more relevant insights than the default GPT-4o model.
 
 ## ⚠️ Important Notes & Cautions
 
