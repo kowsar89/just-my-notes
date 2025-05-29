@@ -13,15 +13,4 @@
   <% } %>
   <%- js({ src: 'js/main.js', defer: true }) %>
   <%- partial('_partial/import', { resource: theme.import.head.after }) %>
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GGNJQPMSZD"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-GGNJQPMSZD');
-  </script>
-
 </head>
