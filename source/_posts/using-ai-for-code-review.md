@@ -33,7 +33,7 @@ With this in place, all I need to do is point Codex to `_code-review.md` and it 
 
 When a GitLab MR needs reviewing, I simply ask Codex to use `_code-review.md` with the MR number. Like following: 
 
-![Codex Code Review](/images/codex.png)
+![Codex Code Review](/images/codex-2.png)
 
 Since `glab` is already installed and authenticated on my system, Codex runs the command, fetches the diff, and starts analyzing it right away.
 
