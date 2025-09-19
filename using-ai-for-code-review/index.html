@@ -13,15 +13,15 @@
 <meta property="og:site_name" content="Just My Notes">
 <meta property="og:description" content="You can still read the old version of this post if you’re curious, but note that it’s now obsolete. Link: How I Use AI to Assist My Code Review Process (Obsolete, May 29 version)  As someone who spen">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://kowsar89.github.io/just-my-notes/images/codex.png">
+<meta property="og:image" content="https://kowsar89.github.io/just-my-notes/images/codex-2.png">
 <meta property="og:image" content="https://kowsar89.github.io/just-my-notes/images/review-output.png">
 <meta property="article:published_time" content="2025-09-18T18:00:00.000Z">
-<meta property="article:modified_time" content="2025-09-19T10:27:24.703Z">
+<meta property="article:modified_time" content="2025-09-19T11:58:03.468Z">
 <meta property="article:author" content="Kowsar Hossain">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="Code Review">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://kowsar89.github.io/just-my-notes/images/codex.png">
+<meta name="twitter:image" content="https://kowsar89.github.io/just-my-notes/images/codex-2.png">
   
 <link rel="stylesheet" href="/just-my-notes/css/style.css">
 
@@ -171,7 +171,7 @@
 <p>I’ve shared the full content here as a gist: <a target="_blank" rel="noopener" href="https://gist.github.com/kowsar89/d99ca34b5f8ce4e58d454c0267ad71dd">gist.github.com&#x2F;kowsar89&#x2F;d99ca34b5f8ce4e58d454c0267ad71dd</a></p>
 <p>With this in place, all I need to do is point Codex to <code>_code-review.md</code> and it knows exactly what to do.</p>
 <h2 id="🔧-Step-3-Running-a-Review"><a href="#🔧-Step-3-Running-a-Review" class="headerlink" title="🔧 Step-3: Running a Review"></a>🔧 Step-3: Running a Review</h2><p>When a GitLab MR needs reviewing, I simply ask Codex to use <code>_code-review.md</code> with the MR number. Like following: </p>
-<p><img src="/just-my-notes/images/codex.png" alt="Codex Code Review"></p>
+<p><img src="/just-my-notes/images/codex-2.png" alt="Codex Code Review"></p>
 <p>Since <code>glab</code> is already installed and authenticated on my system, Codex runs the command, fetches the diff, and starts analyzing it right away.</p>
 <h2 id="📂-Step-4-Reading-the-Results"><a href="#📂-Step-4-Reading-the-Results" class="headerlink" title="📂 Step-4: Reading the Results"></a>📂 Step-4: Reading the Results</h2><p>Once the review is done, Codex automatically saves the findings in the <code>~/ai-coding/code-reviews/</code> directory. The file is named after the MR number, for example <code>~/ai-coding/code-reviews/1971.md</code>.</p>
 <p>If the same MR is reviewed multiple times, it creates new versions with suffixes like <code>-1</code>, <code>-2</code>, and so on</p>
