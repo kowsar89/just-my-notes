@@ -6,18 +6,22 @@
   
   <title>How I Use AI to Assist My Code Review Process | Just My Notes</title>
   <link rel="shortcut icon" href="/just-my-notes/">
-  <meta name="description" content="As someone who spends most of their time reviewing code, I’ve been integrating AI into my code review workflow ever since ChatGPT became publicly available. Over time, as new AI tools and models emerg">
+  <meta name="description" content="You can still read the old version of this post if you’re curious, but note that it’s now obsolete. Link: How I Use AI to Assist My Code Review Process (Obsolete, May 29 version)  As someone who spen">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How I Use AI to Assist My Code Review Process">
 <meta property="og:url" content="https://kowsar89.github.io/just-my-notes/using-ai-for-code-review/index.html">
 <meta property="og:site_name" content="Just My Notes">
-<meta property="og:description" content="As someone who spends most of their time reviewing code, I’ve been integrating AI into my code review workflow ever since ChatGPT became publicly available. Over time, as new AI tools and models emerg">
+<meta property="og:description" content="You can still read the old version of this post if you’re curious, but note that it’s now obsolete. Link: How I Use AI to Assist My Code Review Process (Obsolete, May 29 version)  As someone who spen">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2025-05-28T18:00:00.000Z">
-<meta property="article:modified_time" content="2025-05-29T15:44:48.748Z">
+<meta property="og:image" content="https://kowsar89.github.io/just-my-notes/images/codex.png">
+<meta property="og:image" content="https://kowsar89.github.io/just-my-notes/images/review-output.png">
+<meta property="article:published_time" content="2025-09-18T18:00:00.000Z">
+<meta property="article:modified_time" content="2025-09-19T10:27:24.703Z">
 <meta property="article:author" content="Kowsar Hossain">
 <meta property="article:tag" content="AI">
+<meta property="article:tag" content="Code Review">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kowsar89.github.io/just-my-notes/images/codex.png">
   
 <link rel="stylesheet" href="/just-my-notes/css/style.css">
 
@@ -128,8 +132,8 @@
     <div class="article-meta">
       <div class="article-meta-list">
         
-        <time datetime="May 29, 2025" title="May 29, 2025" class="time">
-          May 29, 2025
+        <time datetime="September 19, 2025" title="September 19, 2025" class="time">
+          September 19, 2025
         </time>
         
         <div class="article-meta-item-wrap">
@@ -139,7 +143,7 @@
   <path d="M10 4H30L40 14V42C40 43.1046 39.1046 44 38 44H10C8.89543 44 8 43.1046 8 42V6C8 4.89543 8.89543 4 10 4Z"></path>
   <path d="M16.0083 20L19.0083 34L24.0083 24L29.0083 34L32.0083 20"></path>
 </svg>
-            <span>650</span>
+            <span>682</span>
           </div>
           
           
@@ -156,37 +160,29 @@
       </div>
     </div>
   </div>
-  <div class="article-content"><p>As someone who spends most of their time reviewing code, I’ve been integrating AI into my code review workflow ever since ChatGPT became publicly available. Over time, as new AI tools and models emerged, my approach evolved. AI is changing rapidly, so this post is just a snapshot of how I use it <strong>today — May 29, 2025</strong>. It might become outdated pretty quickly, but here’s how I currently use AI to support my code review work.</p>
-<h2 id="🧠-Why-I-Use-AI-in-Code-Reviews"><a href="#🧠-Why-I-Use-AI-in-Code-Reviews" class="headerlink" title="🧠 Why I Use AI in Code Reviews"></a>🧠 Why I Use AI in Code Reviews</h2><p>AI is not a replacement for a human reviewer. It’s a tool — one that helps me think better, catch more edge cases, and question assumptions. It often highlights potential issues that are easy to miss with the human eye, especially when reviewing large or repetitive changes. That said, it also introduces noise: false positives, overly strict suggestions, and occasional nonsense. So it’s essential to treat AI suggestions as advisory, not authoritative.</p>
-<h2 id="🛠️-Step-1-Getting-the-Diff-View-of-a-Merge-Request"><a href="#🛠️-Step-1-Getting-the-Diff-View-of-a-Merge-Request" class="headerlink" title="🛠️ Step-1: Getting the Diff View of a Merge Request"></a>🛠️ Step-1: Getting the Diff View of a Merge Request</h2><p>When a GitLab Merge Request (MR) is assigned to me, I go straight to the raw diff view. This gives me a cleaner view of what changed. The trick is simple: just add <code>.diff</code> to the end of the MR URL.</p>
-<p>For example, if the original MR URL is: <a target="_blank" rel="noopener" href="https://gitlab.com/kowsar89/project-name/-/merge_requests/1200">https://gitlab.com/kowsar89/project-name/-/merge_requests/1200</a></p>
-<p>Then the <code>.diff</code> URL becomes: <a target="_blank" rel="noopener" href="https://gitlab.com/kowsar89/project-name/-/merge_requests/1200.diff">https://gitlab.com/kowsar89/project-name/-/merge_requests/1200.diff</a></p>
-<p>I open that in my browser and copy the entire diff text.</p>
-<p><strong>💡 Note:</strong> This same <code>.diff</code> trick works for GitHub Pull Requests (PR) too — just add <code>.diff</code> at the end of the PR URL.</p>
-<h2 id="📝-Step-2-Feed-the-Diff-into-ChatGPT"><a href="#📝-Step-2-Feed-the-Diff-into-ChatGPT" class="headerlink" title="📝 Step-2: Feed the Diff into ChatGPT"></a>📝 Step-2: Feed the Diff into ChatGPT</h2><p>Once I have the diff, I paste it into ChatGPT along with a specific prompt. Here’s what the full prompt usually looks like:</p>
-<blockquote>
-<figure class="highlight plaintext">
-    <div class="code-block-header" lang="plaintext">
-      <span class="copy-code">COPY</span>
-    </div>
-    <table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">diff --git a/woocommerce-filter-orders-by-product.php b/woocommerce-filter-orders-by-product.php</span><br><span class="line">index 8ad0e2f..fc22c06 100644</span><br><span class="line">--- a/woocommerce-filter-orders-by-product.php</span><br><span class="line">+++ b/woocommerce-filter-orders-by-product.php</span><br><span class="line"> </span><br><span class="line">-FOA_Woo_Filter_Orders_by_Product::instance();</span><br><span class="line">\ No newline at end of file</span><br><span class="line">+FOA_Woo_Filter_Orders_by_Product::instance();</span><br></pre></td></tr></table></figure>
-<p>&#x2F;—–<br>Analyze the provided diff content of the code changes and see if you find any problem. I’m only interested in any new issue occurred due to code changes only, nothing else. Note that, strict_types&#x3D;1 is not declared anywhere. And code should be compatible with PHP 7.2+ and WordPress 4.9+</p>
+  <div class="article-content"><blockquote>
+<p>You can still read the old version of this post if you’re curious, but note that it’s now obsolete. Link: <a href="/just-my-notes/using-ai-for-code-review-may29/" title="How I Use AI to Assist My Code Review Process (Obsolete, May 29 version)">How I Use AI to Assist My Code Review Process (Obsolete, May 29 version)</a></p>
 </blockquote>
-<p>This helps me quickly get a second opinion from the AI on whether any potential issues have been introduced.</p>
-<h2 id="🧠-Step-3-Use-the-Right-GPT-for-the-Job"><a href="#🧠-Step-3-Use-the-Right-GPT-for-the-Job" class="headerlink" title="🧠 Step-3: Use the Right GPT for the Job"></a>🧠 Step-3: Use the Right GPT for the Job</h2><p>For code reviews, I use a custom GPT named <strong>WordPress Wizard</strong>, which is available in the ChatGPT Plus subscription. To access it:</p>
-<ol>
-<li>Go to the ChatGPT sidebar.</li>
-<li>Click on ‘GPTs’.</li>
-<li>Search for <strong>WordPress Wizard</strong>.</li>
-<li>Open it and start a chat — it will then be pinned to your sidebar for easy reuse.</li>
-</ol>
-<p>This GPT is fine-tuned to understand WordPress and PHP context, so it often provides much more relevant insights than the default GPT-4o model.</p>
+<p>As someone who spends most of their time reviewing code, I’ve been integrating AI into my code review workflow ever since ChatGPT became publicly available. Over time, as new AI tools and models emerged, my approach evolved. AI is changing rapidly, so this post is just a snapshot of how I use it <strong>today — September 19, 2025</strong>. It might become outdated pretty quickly, but here’s how I currently use AI to support my code review work.</p>
+<h2 id="🧠-Why-I-Use-AI-in-Code-Reviews"><a href="#🧠-Why-I-Use-AI-in-Code-Reviews" class="headerlink" title="🧠 Why I Use AI in Code Reviews"></a>🧠 Why I Use AI in Code Reviews</h2><p>AI is not a replacement for a human reviewer. It’s a tool — one that helps me think better, catch more edge cases, and question assumptions. It often highlights potential issues that are easy to miss with the human eye, especially when reviewing large or repetitive changes. That said, it also introduces noise: false positives, overly strict suggestions, and occasional nonsense. So it’s essential to treat AI suggestions as advisory, not authoritative.</p>
+<h2 id="🛠️-Step-1-Setting-Up-Codex-in-Cursor-VSCode"><a href="#🛠️-Step-1-Setting-Up-Codex-in-Cursor-VSCode" class="headerlink" title="🛠️ Step-1: Setting Up Codex in Cursor&#x2F;VSCode"></a>🛠️ Step-1: Setting Up Codex in Cursor&#x2F;VSCode</h2><p>I use the <strong>OpenAI Codex extension</strong> inside Cursor (VSCode Fork). It supports authentication with either an OpenAI API key or a ChatGPT subscription — I just use my existing ChatGPT Plus subscription.  </p>
+<p>In Codex, I run it in <strong>Agent (full access) mode</strong>, which allows it to use my system tools without interruptions. For code reviews, I prefer the <strong>gpt-5-high</strong> model. There’s also a <code>gpt-5-codex-high</code> variant, but I’ve found <code>gpt-5-high</code> gives the best results for review tasks.</p>
+<h2 id="📝-Step-2-My-Review-Instruction-File"><a href="#📝-Step-2-My-Review-Instruction-File" class="headerlink" title="📝 Step-2: My Review Instruction File"></a>📝 Step-2: My Review Instruction File</h2><p>At the root of my project, I keep a dedicated file called <code>_code-review.md</code>. This file is essentially the playbook for how I want AI to handle reviews. Instead of me typing out rules every time, the file already defines everything — from how to fetch diffs with <code>glab mr diff &lt;number&gt;</code> to how the output should be formatted and stored.</p>
+<p>I’ve shared the full content here as a gist: <a target="_blank" rel="noopener" href="https://gist.github.com/kowsar89/d99ca34b5f8ce4e58d454c0267ad71dd">gist.github.com&#x2F;kowsar89&#x2F;d99ca34b5f8ce4e58d454c0267ad71dd</a></p>
+<p>With this in place, all I need to do is point Codex to <code>_code-review.md</code> and it knows exactly what to do.</p>
+<h2 id="🔧-Step-3-Running-a-Review"><a href="#🔧-Step-3-Running-a-Review" class="headerlink" title="🔧 Step-3: Running a Review"></a>🔧 Step-3: Running a Review</h2><p>When a GitLab MR needs reviewing, I simply ask Codex to use <code>_code-review.md</code> with the MR number. Like following: </p>
+<p><img src="/just-my-notes/images/codex.png" alt="Codex Code Review"></p>
+<p>Since <code>glab</code> is already installed and authenticated on my system, Codex runs the command, fetches the diff, and starts analyzing it right away.</p>
+<h2 id="📂-Step-4-Reading-the-Results"><a href="#📂-Step-4-Reading-the-Results" class="headerlink" title="📂 Step-4: Reading the Results"></a>📂 Step-4: Reading the Results</h2><p>Once the review is done, Codex automatically saves the findings in the <code>~/ai-coding/code-reviews/</code> directory. The file is named after the MR number, for example <code>~/ai-coding/code-reviews/1971.md</code>.</p>
+<p>If the same MR is reviewed multiple times, it creates new versions with suffixes like <code>-1</code>, <code>-2</code>, and so on</p>
+<p>I use a Markdown browser extension, so I can open the file directly in my browser and read the formatted output with zero extra effort. Here’s an example of what it looks like:</p>
+<p><img src="/just-my-notes/images/review-output.png" alt="Codex Code Review Output"></p>
 <h2 id="⚠️-Important-Notes-Cautions"><a href="#⚠️-Important-Notes-Cautions" class="headerlink" title="⚠️ Important Notes &amp; Cautions"></a>⚠️ Important Notes &amp; Cautions</h2><ul>
 <li>This AI workflow is only for <strong>code review</strong>, not development. I have a separate setup for writing or debugging code.</li>
 <li>AI helps me think, but I never blindly trust its output. It can produce false positives — sometimes sounding very confident while being completely wrong. So I treat every suggestion with a critical eye.</li>
 <li>It sometimes slows down the review process, but the trade-off is worth it because I catch more edge cases and subtle bugs.</li>
 </ul>
-<h2 id="✅-Final-Thoughts"><a href="#✅-Final-Thoughts" class="headerlink" title="✅ Final Thoughts"></a>✅ Final Thoughts</h2><p>Integrating AI into my code review workflow has significantly improved the quality of my reviews. While it doesn’t replace my judgment, it complements it — especially when it comes to catching tricky or edge-case issues. As with any tool, the key is knowing how and when to use it. For now, this setup works well — and I’ll continue evolving it as the AI landscape changes.</p>
+<h2 id="✅-Final-Thoughts"><a href="#✅-Final-Thoughts" class="headerlink" title="✅ Final Thoughts"></a>✅ Final Thoughts</h2><p>Integrating AI into my code review workflow has significantly improved the quality and speed of my reviews. While it doesn’t replace my judgment, it complements it — especially when it comes to catching tricky or edge-case issues. As with any tool, the key is knowing how and when to use it. For now, this setup works well — and I’ll continue evolving it as the AI landscape changes.</p>
 </div>
   
   <div class="article-end">
@@ -208,6 +204,10 @@
         
         <a class="article-tags-item" href="/just-my-notes/tags/AI/">
           AI
+        </a>
+        
+        <a class="article-tags-item" href="/just-my-notes/tags/Code-Review/">
+          Code Review
         </a>
         
       </div>
@@ -249,7 +249,7 @@
     <div class="sidebar-title toc-title">Catalog</div>
     <div class="sidebar-body">
       <ul class="toc-list">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A7%A0-Why-I-Use-AI-in-Code-Reviews"><span class="toc-number">1.</span> <span class="toc-text">🧠 Why I Use AI in Code Reviews</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9B%A0%EF%B8%8F-Step-1-Getting-the-Diff-View-of-a-Merge-Request"><span class="toc-number">2.</span> <span class="toc-text">🛠️ Step-1: Getting the Diff View of a Merge Request</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9D-Step-2-Feed-the-Diff-into-ChatGPT"><span class="toc-number">3.</span> <span class="toc-text">📝 Step-2: Feed the Diff into ChatGPT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A7%A0-Step-3-Use-the-Right-GPT-for-the-Job"><span class="toc-number">4.</span> <span class="toc-text">🧠 Step-3: Use the Right GPT for the Job</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F-Important-Notes-Cautions"><span class="toc-number">5.</span> <span class="toc-text">⚠️ Important Notes &amp; Cautions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%85-Final-Thoughts"><span class="toc-number">6.</span> <span class="toc-text">✅ Final Thoughts</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A7%A0-Why-I-Use-AI-in-Code-Reviews"><span class="toc-number">1.</span> <span class="toc-text">🧠 Why I Use AI in Code Reviews</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9B%A0%EF%B8%8F-Step-1-Setting-Up-Codex-in-Cursor-VSCode"><span class="toc-number">2.</span> <span class="toc-text">🛠️ Step-1: Setting Up Codex in Cursor&#x2F;VSCode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9D-Step-2-My-Review-Instruction-File"><span class="toc-number">3.</span> <span class="toc-text">📝 Step-2: My Review Instruction File</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-Step-3-Running-a-Review"><span class="toc-number">4.</span> <span class="toc-text">🔧 Step-3: Running a Review</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%82-Step-4-Reading-the-Results"><span class="toc-number">5.</span> <span class="toc-text">📂 Step-4: Reading the Results</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F-Important-Notes-Cautions"><span class="toc-number">6.</span> <span class="toc-text">⚠️ Important Notes &amp; Cautions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%85-Final-Thoughts"><span class="toc-number">7.</span> <span class="toc-text">✅ Final Thoughts</span></a></li></ol>
       </ul>
     </div>
   </div>
