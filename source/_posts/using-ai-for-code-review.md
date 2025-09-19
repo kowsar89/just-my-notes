@@ -1,58 +1,51 @@
 title: How I Use AI to Assist My Code Review Process
-date: 2025-05-29
+date: 2025-09-19
 categories:
   - Development
 tags:
   - AI
+  - Code Review
 ---
 
-As someone who spends most of their time reviewing code, I’ve been integrating AI into my code review workflow ever since ChatGPT became publicly available. Over time, as new AI tools and models emerged, my approach evolved. AI is changing rapidly, so this post is just a snapshot of how I use it **today — May 29, 2025**. It might become outdated pretty quickly, but here’s how I currently use AI to support my code review work.
+> You can still read the old version of this post if you're curious, but note that it’s now obsolete. Link: {% post_link using-ai-for-code-review-may29 %}
+
+As someone who spends most of their time reviewing code, I’ve been integrating AI into my code review workflow ever since ChatGPT became publicly available. Over time, as new AI tools and models emerged, my approach evolved. AI is changing rapidly, so this post is just a snapshot of how I use it **today — September 19, 2025**. It might become outdated pretty quickly, but here’s how I currently use AI to support my code review work.
 
 ## 🧠 Why I Use AI in Code Reviews
 
 AI is not a replacement for a human reviewer. It’s a tool — one that helps me think better, catch more edge cases, and question assumptions. It often highlights potential issues that are easy to miss with the human eye, especially when reviewing large or repetitive changes. That said, it also introduces noise: false positives, overly strict suggestions, and occasional nonsense. So it’s essential to treat AI suggestions as advisory, not authoritative.
 
-## 🛠️ Step-1: Getting the Diff View of a Merge Request
+## 🛠️ Step-1: Setting Up Codex in Cursor/VSCode
 
-When a GitLab Merge Request (MR) is assigned to me, I go straight to the raw diff view. This gives me a cleaner view of what changed. The trick is simple: just add `.diff` to the end of the MR URL.
+I use the **OpenAI Codex extension** inside Cursor (VSCode Fork). It supports authentication with either an OpenAI API key or a ChatGPT subscription — I just use my existing ChatGPT Plus subscription.  
 
-For example, if the original MR URL is: https://gitlab.com/kowsar89/project-name/-/merge_requests/1200
+In Codex, I run it in **Agent (full access) mode**, which allows it to use my system tools without interruptions. For code reviews, I prefer the **gpt-5-high** model. There’s also a `gpt-5-codex-high` variant, but I’ve found `gpt-5-high` gives the best results for review tasks.
 
-Then the `.diff` URL becomes: https://gitlab.com/kowsar89/project-name/-/merge_requests/1200.diff
+## 📝 Step-2: My Review Instruction File
 
-I open that in my browser and copy the entire diff text.
+At the root of my project, I keep a dedicated file called `_code-review.md`. This file is essentially the playbook for how I want AI to handle reviews. Instead of me typing out rules every time, the file already defines everything — from how to fetch diffs with `glab mr diff <number>` to how the output should be formatted and stored.
 
-**💡 Note:** This same `.diff` trick works for GitHub Pull Requests (PR) too — just add `.diff` at the end of the PR URL.
+I’ve shared the full content here as a gist: [gist.github.com/kowsar89/d99ca34b5f8ce4e58d454c0267ad71dd](https://gist.github.com/kowsar89/d99ca34b5f8ce4e58d454c0267ad71dd)
 
-## 📝 Step-2: Feed the Diff into ChatGPT
+With this in place, all I need to do is point Codex to `_code-review.md` and it knows exactly what to do.
 
-Once I have the diff, I paste it into ChatGPT along with a specific prompt. Here's what the full prompt usually looks like:
+## 🔧 Step-3: Running a Review
 
-> ```
-> diff --git a/woocommerce-filter-orders-by-product.php b/woocommerce-filter-orders-by-product.php
-> index 8ad0e2f..fc22c06 100644
-> --- a/woocommerce-filter-orders-by-product.php
-> +++ b/woocommerce-filter-orders-by-product.php
->  
-> -FOA_Woo_Filter_Orders_by_Product::instance();
-> \ No newline at end of file
-> +FOA_Woo_Filter_Orders_by_Product::instance();
-> ```
-> /-----
-> Analyze the provided diff content of the code changes and see if you find any problem. I'm only interested in any new issue occurred due to code changes only, nothing else. Note that, strict_types=1 is not declared anywhere. And code should be compatible with PHP 7.2+ and WordPress 4.9+
+When a GitLab MR needs reviewing, I simply ask Codex to use `_code-review.md` with the MR number. Like following: 
 
-This helps me quickly get a second opinion from the AI on whether any potential issues have been introduced.
+![Codex Code Review](/images/codex.png)
 
-## 🧠 Step-3: Use the Right GPT for the Job
+Since `glab` is already installed and authenticated on my system, Codex runs the command, fetches the diff, and starts analyzing it right away.
 
-For code reviews, I use a custom GPT named **WordPress Wizard**, which is available in the ChatGPT Plus subscription. To access it:
+## 📂 Step-4: Reading the Results
 
-1. Go to the ChatGPT sidebar.
-2. Click on 'GPTs'.
-3. Search for **WordPress Wizard**.
-4. Open it and start a chat — it will then be pinned to your sidebar for easy reuse.
+Once the review is done, Codex automatically saves the findings in the `~/ai-coding/code-reviews/` directory. The file is named after the MR number, for example `~/ai-coding/code-reviews/1971.md`.
 
-This GPT is fine-tuned to understand WordPress and PHP context, so it often provides much more relevant insights than the default GPT-4o model.
+If the same MR is reviewed multiple times, it creates new versions with suffixes like `-1`, `-2`, and so on
+
+I use a Markdown browser extension, so I can open the file directly in my browser and read the formatted output with zero extra effort. Here’s an example of what it looks like:
+
+![Codex Code Review Output](/images/review-output.png)
 
 ## ⚠️ Important Notes & Cautions
 
@@ -62,4 +55,4 @@ This GPT is fine-tuned to understand WordPress and PHP context, so it often prov
 
 ## ✅ Final Thoughts
 
-Integrating AI into my code review workflow has significantly improved the quality of my reviews. While it doesn't replace my judgment, it complements it — especially when it comes to catching tricky or edge-case issues. As with any tool, the key is knowing how and when to use it. For now, this setup works well — and I’ll continue evolving it as the AI landscape changes.
+Integrating AI into my code review workflow has significantly improved the quality and speed of my reviews. While it doesn’t replace my judgment, it complements it — especially when it comes to catching tricky or edge-case issues. As with any tool, the key is knowing how and when to use it. For now, this setup works well — and I’ll continue evolving it as the AI landscape changes.
