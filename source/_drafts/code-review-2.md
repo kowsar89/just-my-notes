@@ -21,9 +21,11 @@ In Codex, I run it in **Agent (full access) mode**, which allows it to use my sy
 
 ## 📝 Step-2: My Review Instruction File
 
-At the root of my project, I keep a file named `_code-review.md`. This file contains all the rules the AI should follow when performing a review. Here's the content of the file as gist: https://gist.github.com/kowsar89/d99ca34b5f8ce4e58d454c0267ad71dd
+At the root of my project, I keep a dedicated file called `_code-review.md`. This file is essentially the playbook for how I want AI to handle reviews. Instead of me typing out rules every time, the file already defines everything — from how to fetch diffs with `glab mr diff <number>` to how the output should be formatted and stored.
 
-Because everything is already written in `_code-review.md`, I never need to re-explain my workflow — Codex just follows the file.
+I’ve shared the full content here as a gist: [gist.github.com/kowsar89/d99ca34b5f8ce4e58d454c0267ad71dd](https://gist.github.com/kowsar89/d99ca34b5f8ce4e58d454c0267ad71dd)
+
+With this in place, all I need to do is point Codex to `_code-review.md` and it knows exactly what to do.
 
 ## 🔧 Step-3: Running a Review
 
@@ -35,9 +37,11 @@ Since `glab` is already installed and authenticated on my system, Codex runs the
 
 ## 📂 Step-4: Reading the Results
 
-After completing the review, Codex writes the results to `~/ai-coding/code-reviews/` directory as per the instruction file ie `~/ai-coding/code-reviews/1971.md`.
+Once the review is done, Codex automatically saves the findings in the `~/ai-coding/code-reviews/` directory. The file is named after the MR number, for example `~/ai-coding/code-reviews/1971.md`.
 
-I use a Markdown browser extension, so I can open the file directly in my browser and read the formatted output with zero extra effort.
+If the same MR is reviewed multiple times, it creates new versions with suffixes like `-1`, `-2`, and so on
+
+I use a Markdown browser extension, so I can open the file directly in my browser and read the formatted output with zero extra effort. Here’s an example of what it looks like:
 
 ![Codex Code Review Output](/images/review-output.png)
 
