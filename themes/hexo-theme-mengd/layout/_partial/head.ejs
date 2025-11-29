@@ -21,8 +21,12 @@
     const ogOptions = computedDescription
       ? Object.assign({}, themeOg, { description: computedDescription })
       : themeOg;
+    const sanitizeOpenGraph = (markup = '') => markup
+      .replace(/<meta property="og:image"[^>]*>\s*/gi, '')
+      .replace(/<meta name="twitter:image"[^>]*>\s*/gi, '');
+    const openGraphMarkup = sanitizeOpenGraph(open_graph(ogOptions));
   %>
-  <%- open_graph(ogOptions) %>
+  <%- openGraphMarkup %>
   <%- css('css/style') %>
   
   <% if(is_page() || is_post()){ %>
