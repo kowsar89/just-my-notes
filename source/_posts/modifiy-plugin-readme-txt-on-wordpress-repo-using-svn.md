@@ -10,7 +10,7 @@ I recently needed to update the `readme.txt` file inside a specific tag (`tags/4
 
 ---
 
-## 🔧 Goal
+## Goal
 
 Update the following line in `readme.txt` inside `tags/4.1`:
 
@@ -20,7 +20,7 @@ Tested up to: 6.8
 
 ---
 
-## 🛠️ Prerequisites
+## Prerequisites
 
 Make sure SVN (Subversion) is installed on your system. I’m using Ubuntu, so I installed it with:
 
@@ -31,7 +31,7 @@ sudo apt install subversion
 
 ---
 
-## 📥 Step 1: Checkout the Plugin
+## Step 1: Checkout the Plugin
 
 Replace `your-plugin-slug` with your actual plugin slug. For me, it's `woocommerce-filter-orders-by-product`.
 
@@ -48,7 +48,7 @@ This downloads the full plugin structure, including:
 
 ---
 
-## 📂 Step 2: Navigate to the Tag Directory
+## Step 2: Navigate to the Tag Directory
 
 ```bash
 cd tags/4.1
@@ -56,7 +56,7 @@ cd tags/4.1
 
 ---
 
-## 📝 Step 3: Edit the File
+## Step 3: Edit the File
 
 I opened `readme.txt` using nano, but you can use any editor:
 
@@ -74,7 +74,7 @@ Saved the file and exited the editor.
 
 ---
 
-## ✅ Step 4: Commit the Change
+## Step 4: Commit the Change
 
 To commit only the `readme.txt` file and include my WordPress.org SVN username (but **not** the password), I ran:
 
@@ -86,13 +86,13 @@ SVN then prompted me for my password securely in the terminal.
 
 ---
 
-## 🕒 Step 5: Wait a Few Minutes
+## Step 5: Wait a Few Minutes
 
 After a few minutes, the change was reflected in the plugin's readme file on the WordPress.org plugin page under version 4.1.
 
 ---
 
-## ✅ Bonus: Check Your Changes Before Committing
+## Bonus: Check Your Changes Before Committing
 
 Optional but helpful:
 
@@ -103,6 +103,6 @@ svn status                # See what files are modified
 
 ---
 
-## 🧠 Final Thoughts
+## Final Thoughts
 
 This was a good reminder that SVN is different from Git — you commit from within specific directories, and you commit files explicitly.

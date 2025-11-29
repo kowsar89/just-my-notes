@@ -78,7 +78,7 @@ By following these steps, you can customize your Slack experience on Linux to be
 
 ---
 
-**🛠️ (Optional) Note on Using `PATH=$PATH` with `asar`**
+**(Optional) Note on Using `PATH=$PATH` with `asar`**
 
 If you’re wondering why I used `sudo env "PATH=$PATH" asar ...` instead of just `sudo asar ...`, here’s the reason:
 
@@ -120,4 +120,3 @@ Problem solved. ✔️
 **Ref**: [superuser][1]
 
 [1]: https://superuser.com/questions/1211975/slack-app-on-linux-how-to-disable-the-blue-circle-icon-on-channel-activity "Slack app on Linux: How to disable the \"blue circle\" icon on channel ..."
-

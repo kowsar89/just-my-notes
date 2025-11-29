@@ -7,10 +7,10 @@ tags:
 ---
 
 {% no_preview %}
-> ⚠️ Update: A newer version of this post is available — {% post_link using-ai-for-code-review %}.
+> Update: A newer version of this post is available — {% post_link using-ai-for-code-review %}.
 {% endno_preview %}
 
-## 🛠️ Step-1: Getting the Diff View of a Merge Request
+## Step-1: Getting the Diff View of a Merge Request
 
 When a GitLab Merge Request (MR) is assigned to me, I go straight to the raw diff view. This gives me a cleaner view of what changed. The trick is simple: just add `.diff` to the end of the MR URL.
 
@@ -20,9 +20,9 @@ Then the `.diff` URL becomes: https://gitlab.com/kowsar89/project-name/-/merge_r
 
 I open that in my browser and copy the entire diff text.
 
-**💡 Note:** This same `.diff` trick works for GitHub Pull Requests (PR) too — just add `.diff` at the end of the PR URL.
+**Note:** This same `.diff` trick works for GitHub Pull Requests (PR) too — just add `.diff` at the end of the PR URL.
 
-## 📝 Step-2: Feed the Diff into ChatGPT
+## Step-2: Feed the Diff into ChatGPT
 
 Once I have the diff, I paste it into ChatGPT along with a specific prompt. Here's what the full prompt usually looks like:
 
@@ -41,7 +41,7 @@ Once I have the diff, I paste it into ChatGPT along with a specific prompt. Here
 
 This helps me quickly get a second opinion from the AI on whether any potential issues have been introduced.
 
-## 🧠 Step-3: Use the Right GPT for the Job
+## Step-3: Use the Right GPT for the Job
 
 For code reviews, I use a custom GPT named **WordPress Wizard**, which is available in the ChatGPT Plus subscription. To access it:
 
