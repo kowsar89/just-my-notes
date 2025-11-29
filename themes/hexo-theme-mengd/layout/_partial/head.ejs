@@ -44,7 +44,11 @@
 
     gtag('config', 'G-GGNJQPMSZD');
   </script>
-
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="9e62400f-44bc-466c-8728-ee2155c369cb"></script>
+  <%- js({
+    src: 'js/umami.js',
+    defer: true,
+    'data-website-id': '9e62400f-44bc-466c-8728-ee2155c369cb',
+    'data-host-url': 'https://cloud.umami.is'
+  }) %>
 
 </head>
