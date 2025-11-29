@@ -7,7 +7,9 @@ tags:
   - Code Review
 ---
 
+{% no_preview %}
 > You can still read the old version of this post if you're curious, but note that it’s now obsolete. Link: {% post_link using-ai-for-code-review-may29 %}
+{% endno_preview %}
 
 As someone who spends most of their time reviewing code, I’ve been integrating AI into my code review workflow ever since ChatGPT became publicly available. Over time, as new AI tools and models emerged, my approach evolved. AI is changing rapidly, so this post is just a snapshot of how I use it **today — September 19, 2025**. It might become outdated pretty quickly, but here’s how I currently use AI to support my code review work.
 
