@@ -21,7 +21,7 @@ AI is not a replacement for a human reviewer. It’s a tool — one that helps m
 
 I use the **OpenAI Codex extension** inside Cursor (VSCode Fork). It supports authentication with either an OpenAI API key or a ChatGPT subscription — I just use my existing ChatGPT Plus subscription.  
 
-In Codex, I run it in **Agent (full access) mode**, which allows it to use my system tools without interruptions. For code reviews, I prefer the **gpt-5-high** model. There’s also a `gpt-5-codex-high` variant, but I’ve found `gpt-5-high` gives the best results for review tasks.
+In Codex, I run it in **Agent (full access) mode**, which allows it to use my system tools without interruptions. For code reviews, ~~I prefer the **gpt-5-high** model. There’s also a `gpt-5-codex-high` variant, but I’ve found `gpt-5-high` gives the best results for review tasks~~.
 
 ## 📝 Step-2: My Review Instruction File
 
