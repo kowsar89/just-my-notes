@@ -6,7 +6,9 @@ tags:
   - AI
 ---
 
+{% no_preview %}
 > ⚠️ Update: A newer version of this post is available — {% post_link using-ai-for-code-review %}.
+{% endno_preview %}
 
 ## 🛠️ Step-1: Getting the Diff View of a Merge Request
 
