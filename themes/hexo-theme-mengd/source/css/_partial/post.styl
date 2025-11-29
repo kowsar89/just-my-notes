@@ -156,6 +156,7 @@
 .article-end {
     .article-meta {
         display: flex;
+        flex-wrap: wrap;
 
         .article-categories {
             margin-right: 2.67rem;
@@ -165,6 +166,7 @@
             display: flex;
             font-size: 1.167rem;
             line-height: 2.286;
+            flex-wrap: wrap;
 
             .article-categories-name, .article-tags-name {
                 flex-shrink: 0;
@@ -187,6 +189,27 @@
     }
 
     @import '_partial/copyright';
+}
+
+@media (max-width: 600px) {
+    .article-end {
+        .article-meta {
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .article-categories, .article-tags {
+            width: 100%;
+        }
+
+        .article-categories {
+            margin-right: 0;
+        }
+
+        .article-categories-item, .article-tags-item {
+            margin-bottom: 0.5rem;
+        }
+    }
 }
 
 @import '_highlight/code_block';
