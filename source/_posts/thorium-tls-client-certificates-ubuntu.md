@@ -9,21 +9,35 @@ tags:
   - TLS
 ---
 
-I needed to use TLS client certificates to access a couple of work-related websites in Thorium Browser on Ubuntu. The certificates were provided as password-protected `.p12` files.
+I needed to use TLS client certificates to access a couple of work-related websites in Thorium (a Chromium-based web browser) on Ubuntu (22.04 LTS). The certificates were provided as password-protected `.p12` files.
 
 I first imported the certificates through Thorium's GUI and later configured automatic certificate selection using a Chromium policy.
 
 ## Part 1: Importing .p12 Certificates into Thorium
 
-### Step 1: Open Certificate Settings
+### Step 1: Open Certificate Manager
 
-I opened Thorium and navigated to:
+I opened Thorium and went to **Settings → Privacy and security → Security**.
 
-```text
-chrome://settings/certificates
-```
+I then scrolled down to the **Advanced** section and clicked **Manage certificates**.
 
-Under **Your certificates** (the personal certificates section), I found the option to import a certificate.
+This opened Thorium's Certificate Manager.
+
+### Step 2: Import the .p12 Certificates
+
+In Certificate Manager, I selected **Your certificates** from the left sidebar.
+
+Under **Linux**, I clicked **View imported certificates from Linux**, which opened the **Client certificates from platform** page.
+
+From there, I clicked **Import**, selected the `.p12` file, and entered its password.
+
+I repeated the same process for the other certificate.
+
+A `.p12` (PKCS#12) file typically contains both a certificate and its private key, protected by a password.
+
+After importing, both certificates appeared in the Certificate Manager and were available for TLS client authentication.
+
+---
 
 ### Step 2: Import the .p12 File
 
@@ -121,3 +135,5 @@ The policy file is stored at:
 ```
 
 This location worked with my `.deb` installation of Thorium on Ubuntu. Other builds may use a different policy directory.
+
+I haven't tested these steps in Google Chrome. However, since both Thorium and Google Chrome are Chromium-based browsers, a similar approach should work in Chrome as well. The policy directory may be different, and the GUI steps for importing certificates may vary depending on the browser and its version.
