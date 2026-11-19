@@ -82,8 +82,7 @@ The `read -s` option hides the password while typing it. Using a variable also k
 
 The `unset` command removes the `P12_PASSWORD` shell variable after the configuration command finishes. It **does not** remove the password already saved by `glab`.
 
-**A caution about password storage:** Without an enabled and working OS keyring, `glab config set client_cert_password` can store the `.p12` password in plaintext in `~/.config/glab-cli/config.yml`. I keep the configuration file private and do not commit or share it. Anyone who can read that file may be able to obtain the password. A keyring is a more secure alternative for supported credentials.
-
+**A caution about password storage:** Without an enabled and working OS keyring, `glab config set client_cert_password` can store the `.p12` password in plaintext in `~/.config/glab-cli/config.yml`.
 ## Part 4: Testing GitLab API Access
 
 With the certificate and password configured, I checked my GitLab API access:
@@ -93,18 +92,6 @@ glab api user --hostname gitlab.example.com
 ```
 
 This should return my GitLab user information if the connection and GitLab authentication work. A successful response alone does not confirm that the server requires mTLS; that depends on the server's TLS configuration.
-
-## Troubleshooting
-
-If `glab` cannot open the certificate, I check that the file exists at the configured location and that my user has permission to read it:
-
-```bash
-ls -l ~/.config/glab-cli/certs/client.p12
-```
-
-If the PKCS#12 file cannot be decrypted, I check the password saved through `client_cert_password`, without printing or sharing it.
-
-If the GitLab API returns `401 Unauthorized` or `403 Forbidden`, I check my GitLab token and permissions separately. Those HTTP errors do not necessarily mean the TLS certificate is incorrect.
 
 ## Final Thoughts
 
