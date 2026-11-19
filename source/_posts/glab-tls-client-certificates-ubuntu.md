@@ -104,3 +104,22 @@ My `.p12` file is stored at:
 I configured `glab` to use it for my GitLab host, along with the certificate password. The settings persist, so I don't need to select the certificate or re-enter its password for every API request.
 
 The relevant settings are covered in the [GitLab CLI connection guide](https://docs.gitlab.com/cli/connection/) and [configuration reference](https://docs.gitlab.com/cli/configuration/).
+
+## Using a Different SSH Hostname
+
+My Git remote can use a different SSH hostname from the GitLab HTTPS/API hostname configured in `glab`. For example, Git might use `gitlab-int.example.com` over SSH while `glab` uses `gitlab.example.com` over HTTPS with the TLS client certificate.
+
+I configured the SSH hostname for this GitLab instance with:
+
+```bash
+glab config set --host gitlab.example.com \
+  ssh_host gitlab-int.example.com
+```
+
+This keeps the existing Git SSH remote unchanged while `glab` uses `gitlab.example.com` for API requests and its TLS client certificate settings.
+
+I verified the setting with:
+
+```bash
+glab config get ssh_host --host gitlab.example.com
+```
