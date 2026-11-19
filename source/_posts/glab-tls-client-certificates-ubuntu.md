@@ -103,6 +103,4 @@ My `.p12` file is stored at:
 
 I configured `glab` to use it for my GitLab host, along with the certificate password. The settings persist, so I don't need to select the certificate or re-enter its password for every API request.
 
-I chose a straightforward setup without a keyring, with the important tradeoff that the saved certificate password may be readable as plaintext in the local `glab` configuration file.
-
 The relevant settings are covered in the [GitLab CLI connection guide](https://docs.gitlab.com/cli/connection/) and [configuration reference](https://docs.gitlab.com/cli/configuration/).
