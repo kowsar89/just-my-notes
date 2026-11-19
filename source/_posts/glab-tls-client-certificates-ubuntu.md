@@ -10,35 +10,29 @@ tags:
   - TLS
 ---
 
-I needed to use a password-protected TLS client certificate to access a self-managed GitLab instance from the command line on Ubuntu.
+I needed to use a password-protected TLS client certificate to access a self-managed GitLab instance through GitLab CLI (`glab`) on Ubuntu.
 
-I was already using a `.p12` (PKCS#12) certificate with a Chromium-based browser, but I also wanted GitLab CLI (`glab`) to present the certificate automatically when making HTTPS API requests.
+My certificate was provided as a `.p12` (PKCS#12) file. I wanted `glab` to use it for HTTPS API requests without extracting the certificate and private key into separate files.
 
-I used `glab` 1.131.0. The configuration below focuses on mutual TLS (mTLS), not on setting up GitLab personal access tokens or Git operations.
+I used `glab` 1.131.0 for this setup.
 
 ## Part 1: Storing the .p12 Certificate
 
-A `.p12` file can hold both the client certificate and its private key. Because it contains sensitive key material, I wanted to keep the file in a predictable location outside my Git repositories.
+A `.p12` file typically contains a client certificate and its private key, protected by a password. I decided to keep it under my user configuration directory, outside any Git repositories.
 
-### Step 1: Create a Directory
+### Step 1: Create the Certificate Directory
 
-I created a directory under my user configuration:
+I created a directory for the certificate:
 
 ```bash
 mkdir -p ~/.config/glab-cli/certs
-chmod 700 ~/.config/glab-cli/certs
 ```
 
-### Step 2: Copy the Certificate
+### Step 2: Place the Certificate in the Directory
 
-I copied my certificate into that directory:
+I copied the `.p12` file into that directory and named it `client.p12`.
 
-```bash
-cp /path/to/original.p12 ~/.config/glab-cli/certs/client.p12
-chmod 600 ~/.config/glab-cli/certs/client.p12
-```
-
-This resulted in the following layout:
+The resulting structure was:
 
 ```text
 ~/.config/glab-cli/
@@ -47,11 +41,11 @@ This resulted in the following layout:
     └── client.p12
 ```
 
-The directory permissions restrict access to my user, while `600` restricts reading and writing the certificate file to my user. These permissions do not replace the certificate's own password protection.
+The certificate file had `600` permissions, so only my user could read or modify it. Keeping a PKCS#12 file private matters because it usually includes the private key.
 
 ## Part 2: Configuring glab to Use the Certificate
 
-Unlike Chromium-based browsers, `glab` does not use the browser's certificate selection policy. Instead, I configured a certificate path for the GitLab host.
+I configured the certificate for my self-managed GitLab hostname.
 
 ### Step 1: Set the Client Certificate
 
@@ -62,126 +56,84 @@ glab config set --host gitlab.example.com \
   client_cert "$HOME/.config/glab-cli/certs/client.p12"
 ```
 
-The host is an example; I replaced it with my GitLab instance's hostname.
+Here, `gitlab.example.com` stands for the actual GitLab hostname.
 
-With a PKCS#12 bundle, `glab` can read the client certificate and private key from the same file. I did **not** configure `client_key`, which is intended for a separate private-key file.
+The `client_cert` setting points directly to my `.p12` file. I didn't need to convert it to PEM or set a separate `client_key` path.
 
-I also made sure the API protocol was HTTPS:
+Once configured, the certificate path stays in the `glab` configuration across terminal sessions and reboots.
 
-```bash
-glab config set --host gitlab.example.com api_protocol https
-```
+## Part 3: Saving the .p12 Password
 
-### Step 2: Verify the Saved Path
+Because the `.p12` file was password-protected, `glab` also needed the password to unlock it.
 
-I checked the setting:
+I entered the password without displaying it on the terminal, then saved it through the `glab` configuration command:
 
 ```bash
-glab config get client_cert --host gitlab.example.com
+read -rsp "Enter P12 password: " P12_PASSWORD
+echo
+
+glab config set --host gitlab.example.com \
+  client_cert_password "$P12_PASSWORD"
+
+unset P12_PASSWORD
 ```
 
-The output should be the absolute path to `client.p12`.
+The `read -s` option hides the password while typing it. Using a variable also keeps the password itself out of the command recorded in shell history.
 
-The certificate path is persistent: I don't need to set it again after opening a new terminal or rebooting.
+The `unset` command removes the `P12_PASSWORD` shell variable after the configuration command finishes. It **does not** remove the password already saved by `glab`.
 
-## Part 3: Handling the .p12 Password Without a Keyring
+**A caution about password storage:** Without an enabled and working OS keyring, `glab config set client_cert_password` can store the `.p12` password in plaintext in `~/.config/glab-cli/config.yml`. This is how I chose to configure it, so I keep the configuration file private and do not commit or share it. Anyone who can read that file may be able to obtain the password. A keyring is a more secure alternative for supported credentials.
 
-My `.p12` bundle was password-protected. I didn't want to save its decryption password as plaintext in `~/.config/glab-cli/config.yml`, and I chose not to use an operating system keyring.
+## Part 4: Checking GitLab API Access
 
-For that reason, I used an environment variable in the terminal session rather than saving `client_cert_password` with `glab config set`.
+I already had GitLab account authentication configured. The TLS client certificate is separate from my GitLab access token: the certificate is used for the HTTPS connection, while the token authorizes GitLab API requests.
 
-### Step 1: Enter the Password
+### Step 1: Check glab Authentication
 
 I ran:
-
-```bash
-read -rsp "P12 password: " GLAB_CLIENT_CERT_PASSWORD
-echo
-export GLAB_CLIENT_CERT_PASSWORD
-```
-
-The `-s` option prevents the password from being echoed as I type it. Since I enter the value at a prompt, the actual password is not part of my shell command history.
-
-`glab` recognizes `GLAB_CLIENT_CERT_PASSWORD` as the password for a PKCS#12 client certificate.
-
-This does **not** encrypt the environment variable: the password remains in the shell environment and is inherited by child processes until I remove it or close the session. I therefore use this method in my own interactive terminal, not in shared shell sessions or public logs.
-
-### Step 2: Avoid Saving the Password in the Config File
-
-I did not run a command like:
-
-```bash
-# Not used in my setup:
-# glab config set --host gitlab.example.com client_cert_password "PASSWORD"
-```
-
-Without a working keyring, saving that setting can write the password as plaintext into the `glab` configuration file.
-
-The tradeoff of my approach is that I need to enter the certificate password again in each new terminal session. Only the certificate file path is saved permanently.
-
-## Part 4: Testing GitLab API Access
-
-I already had GitLab account authentication configured separately. The TLS client certificate is used during the HTTPS handshake; it does not automatically replace GitLab API authentication.
-
-### Step 1: Check the GitLab Host
-
-I checked the account and endpoint configuration:
 
 ```bash
 glab auth status --hostname gitlab.example.com
 ```
 
-This checks `glab` authentication settings, but a successful result alone does not prove that the TLS client certificate was presented to the server.
+This shows the account, Git protocol, API endpoint, and token storage information for that GitLab host.
 
-### Step 2: Make an API Request
+A successful authentication status does not by itself prove that the TLS client certificate was presented.
 
-With the certificate password present in the shell environment, I tested an API call:
+### Step 2: Test an API Request
 
-```bash
-GITLAB_HOST=gitlab.example.com glab api user
-```
-
-A successful response indicates that I could reach the GitLab API with the configured credentials. To confirm that **mTLS specifically** is required and working, the GitLab server or reverse proxy must be configured to request and validate client certificates; an ordinary successful API request does not prove this by itself.
-
-For this setup, I kept `gitlab.com` as my default `glab` host and supplied `GITLAB_HOST` for commands against my self-managed instance.
-
-### Step 3: Remove the Password from the Session
-
-When finished, I ran:
+To check API access, I can run:
 
 ```bash
-unset GLAB_CLIENT_CERT_PASSWORD
+glab api user --hostname gitlab.example.com
 ```
 
-This removes the variable from the current shell. It does not clear copies already inherited by processes that were launched earlier.
+If the server is reachable and my GitLab account credentials are valid, this should return my user information.
+
+A successful API response alone also does not prove that mTLS is enforced. The server or reverse proxy must actually request and validate a client certificate for the connection to test that requirement.
 
 ## Troubleshooting
 
-If `glab` cannot find the certificate, I first check the path and permissions:
+If `glab` cannot open the certificate, I check that the file exists at the configured location and that my user has permission to read it:
 
 ```bash
 ls -l ~/.config/glab-cli/certs/client.p12
-glab config get client_cert --host gitlab.example.com
 ```
 
-If the PKCS#12 bundle cannot be decrypted, I check whether `GLAB_CLIENT_CERT_PASSWORD` was exported in the **same terminal session** and whether the entered password is correct. I avoid printing the environment variable's value.
+If the PKCS#12 file cannot be decrypted, I check the password saved through `client_cert_password`, without printing or sharing it.
 
-If I get an HTTP `401 Unauthorized` or `403 Forbidden` response, the TLS connection may already be working while GitLab account permissions or API credentials are failing. I troubleshoot those separately from the client certificate.
-
-If the server certificate is signed by a private certificate authority, `glab` also supports a host-specific `ca_cert` setting for trusting that server certificate. I avoid disabling TLS verification just to make a connection succeed.
+If the GitLab API returns `401 Unauthorized` or `403 Forbidden`, I check my GitLab token and permissions separately. Those HTTP errors do not necessarily mean the TLS certificate is incorrect.
 
 ## Final Thoughts
 
-I now have the client certificate stored permanently at:
+My `.p12` file is stored at:
 
 ```text
 ~/.config/glab-cli/certs/client.p12
 ```
 
-And `glab` knows which certificate file to use for my self-managed GitLab hostname.
+I configured `glab` to use it for my GitLab host, along with the certificate password. The settings persist, so I don't need to select the certificate or re-enter its password for every API request.
 
-Unlike the browser configuration, this setup requires no Chromium policy or certificate selection dialog. It also doesn't require extracting a separate PEM key from the `.p12` bundle.
+I chose a straightforward setup without a keyring, with the important tradeoff that the saved certificate password may be readable as plaintext in the local `glab` configuration file.
 
-I deliberately didn't store the certificate's password persistently: I enter it when starting a terminal session and remove the environment variable afterwards. This gives me a straightforward, no-keyring setup, with the tradeoff of typing the password again for a new session.
-
-The `glab` options used here are documented in the [GitLab CLI connection guide](https://docs.gitlab.com/cli/connection/) and [configuration reference](https://docs.gitlab.com/cli/configuration/).
+The relevant settings are covered in the [GitLab CLI connection guide](https://docs.gitlab.com/cli/connection/) and [configuration reference](https://docs.gitlab.com/cli/configuration/).
