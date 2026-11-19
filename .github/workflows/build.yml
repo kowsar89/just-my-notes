@@ -1,15 +1,20 @@
-name: Build Hexo site
+name: Build and deploy Hexo site
 
 on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: github-pages-deploy
+  cancel-in-progress: false
 
 jobs:
-  build:
-    name: Build site
+  build-and-deploy:
+    name: Build and deploy site
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
 
     steps:
       - name: Check out repository
@@ -34,3 +39,10 @@ jobs:
           path: public/
           if-no-files-found: error
           retention-days: 7
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./public
