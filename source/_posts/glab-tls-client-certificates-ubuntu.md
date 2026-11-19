@@ -82,35 +82,17 @@ The `read -s` option hides the password while typing it. Using a variable also k
 
 The `unset` command removes the `P12_PASSWORD` shell variable after the configuration command finishes. It **does not** remove the password already saved by `glab`.
 
-**A caution about password storage:** Without an enabled and working OS keyring, `glab config set client_cert_password` can store the `.p12` password in plaintext in `~/.config/glab-cli/config.yml`. This is how I chose to configure it, so I keep the configuration file private and do not commit or share it. Anyone who can read that file may be able to obtain the password. A keyring is a more secure alternative for supported credentials.
+**A caution about password storage:** Without an enabled and working OS keyring, `glab config set client_cert_password` can store the `.p12` password in plaintext in `~/.config/glab-cli/config.yml`. I keep the configuration file private and do not commit or share it. Anyone who can read that file may be able to obtain the password. A keyring is a more secure alternative for supported credentials.
 
-## Part 4: Checking GitLab API Access
+## Part 4: Testing GitLab API Access
 
-I already had GitLab account authentication configured. The TLS client certificate is separate from my GitLab access token: the certificate is used for the HTTPS connection, while the token authorizes GitLab API requests.
-
-### Step 1: Check glab Authentication
-
-I ran:
-
-```bash
-glab auth status --hostname gitlab.example.com
-```
-
-This shows the account, Git protocol, API endpoint, and token storage information for that GitLab host.
-
-A successful authentication status does not by itself prove that the TLS client certificate was presented.
-
-### Step 2: Test an API Request
-
-To check API access, I can run:
+With the certificate and password configured, I checked my GitLab API access:
 
 ```bash
 glab api user --hostname gitlab.example.com
 ```
 
-If the server is reachable and my GitLab account credentials are valid, this should return my user information.
-
-A successful API response alone also does not prove that mTLS is enforced. The server or reverse proxy must actually request and validate a client certificate for the connection to test that requirement.
+This should return my GitLab user information if the connection and GitLab authentication work. A successful response alone does not confirm that the server requires mTLS; that depends on the server's TLS configuration.
 
 ## Troubleshooting
 
