@@ -30,7 +30,7 @@ mkdir -p ~/.config/glab-cli/certs
 
 ### Step 2: Place the Certificate in the Directory
 
-I copied the `.p12` file into that directory and named it `client.p12`.
+I copied the `.p12` file into that directory and named it `example.p12`.
 
 The resulting structure was:
 
@@ -38,7 +38,7 @@ The resulting structure was:
 ~/.config/glab-cli/
 ├── config.yml
 └── certs/
-    └── client.p12
+    └── example.p12
 ```
 
 The certificate file had `600` permissions, so only my user could read or modify it. Keeping a PKCS#12 file private matters because it usually includes the private key.
@@ -53,7 +53,7 @@ I ran:
 
 ```bash
 glab config set --host gitlab.example.com \
-  client_cert "$HOME/.config/glab-cli/certs/client.p12"
+  client_cert "$HOME/.config/glab-cli/certs/example.p12"
 ```
 
 Here, `gitlab.example.com` stands for the actual GitLab hostname.
@@ -98,7 +98,7 @@ This should return my GitLab user information if the connection and GitLab authe
 My `.p12` file is stored at:
 
 ```text
-~/.config/glab-cli/certs/client.p12
+~/.config/glab-cli/certs/example.p12
 ```
 
 I configured `glab` to use it for my GitLab host, along with the certificate password. The settings persist, so I don't need to select the certificate or re-enter its password for every API request.
