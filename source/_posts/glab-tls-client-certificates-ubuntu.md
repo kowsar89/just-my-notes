@@ -107,7 +107,10 @@ The relevant settings are covered in the [GitLab CLI connection guide](https://d
 
 ## Using a Different SSH Hostname
 
-My Git remote can use a different SSH hostname from the GitLab HTTPS/API hostname configured in `glab`. For example, Git might use `gitlab-int.example.com` over SSH while `glab` uses `gitlab.example.com` over HTTPS with the TLS client certificate.
+My Git remote and `glab` use different hostnames:
+
+- **Git remote (SSH):** `gitlab-int.example.com`
+- **GitLab API (HTTPS with TLS client certificate):** `gitlab.example.com`
 
 I configured the SSH hostname for this GitLab instance with:
 
@@ -117,9 +120,3 @@ glab config set --host gitlab.example.com \
 ```
 
 This keeps the existing Git SSH remote unchanged while `glab` uses `gitlab.example.com` for API requests and its TLS client certificate settings.
-
-I verified the setting with:
-
-```bash
-glab config get ssh_host --host gitlab.example.com
-```
